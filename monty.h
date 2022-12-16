@@ -1,12 +1,6 @@
-#ifndef MONTY
-#define MONTY
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-
-
+#ifndef _MONTY_H_
+#define _MONTY_H_
+#define LIMITERS " ,!?\'\"\t\n\r"
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -37,57 +31,42 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-/**
- * struct content  - opcode and its function
- * @op_func: the opcode
- * @value: function to handle the opcode
- * @line_n: number of the line
- * Description: opcode and its function
- * for stack, queues, LIFO, FIFO Holberton project
- */
-typedef struct content
-{
-	char *op_func;
-	char *value;
-	int line_n;
-} content_v;
+/** Extern Libraries */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
-/**
- * struct stakit  - opcode and its function
- * @int_value: idk.
- * @data: idk.
- * @fp: idk.
- * @line: idk.
- * Description: honestly, idk.
- */
-typedef struct stakit
-{
-	int int_value;
-	content_v data;
-	FILE *fp;
-	char *line;
-} extern_var_t;
-extern extern_var_t ex;
+/** Global Variable */
+int n;
 
-int main(int argc, char *argv[]);
-void read_file(FILE *fp);
-void execute_function(stack_t **stack);
-size_t not_empty(char *line);
-content_v clean_spaces(char *line);
+/** Prototypes */
+void comment(stack_t *head, unsigned int ln, char *tk, FILE *file, int enter);
+void token_error(stack_t *stack, unsigned int number, FILE *file, char *tok);
+void is_number(stack_t *stack, unsigned int lnumber, char *token, FILE *mfile);
+void handle1(stack_t **stack, unsigned int line_number, FILE *m_file, int i);
+int handle2(stack_t **stack, unsigned int line_number, int i);
+int handle3(stack_t **stack, unsigned int line_number, int i);
+int handle4(stack_t **stack, unsigned int line_number, int i);
+void parse_execute(FILE *monty_file, instruction_t instructions[]);
+void _pall(stack_t **stack, unsigned int line_number);
+void _pint(stack_t **stack, unsigned int line_number);
+void _pop(stack_t **stack, unsigned int line_number);
+void _push(stack_t **stack, unsigned int line_number);
+void _push2(stack_t **stack, unsigned int line_number);
+void _swap(stack_t **stack, unsigned int line_number);
+void _add(stack_t **stack, unsigned int line_number);
+void _sub(stack_t **stack, unsigned int line_number);
+void _div(stack_t **stack, unsigned int line_number);
+void _mul(stack_t **stack, unsigned int line_number);
+void _mod(stack_t **stack, unsigned int line_number);
+void _pchar(stack_t **stack, unsigned int line_number);
+void _nop(stack_t **stack, unsigned int line_number);
+void _pstr(stack_t **stack, unsigned int line_number);
+void _rotl(stack_t **stack, unsigned int line_number);
+void _rotr(stack_t **stack, unsigned int line_number);
+void stack(stack_t **stack, unsigned int line_number);
+void queue(stack_t **stack, unsigned int line_number);
+void frees(stack_t *stack);
 
-void monty_push(stack_t **top, unsigned int line_n);
-void monty_pall(stack_t **top, unsigned int line_n);
-void monty_pint(stack_t **top, unsigned int line_n);
-void monty_pop(stack_t **top, unsigned int line_n);
-void monty_swap(stack_t **top, unsigned int line_n);
-void monty_add(stack_t **top, unsigned int line_n);
-void monty_sub(stack_t **top_ptr, unsigned int line_n);
-void monty_mul(stack_t **top_ptr, unsigned int line_n);
-void monty_nop(stack_t **top_ptr, unsigned int line_n);
-void monty_div(stack_t **top_ptr, unsigned int line_n);
-void monty_mod(stack_t **top_ptr, unsigned int line_n);
-void monty_pchar(stack_t **top_ptr, unsigned int line_n);
-void monty_pstr(stack_t **top_ptr, unsigned int line_n);
-
-void free_stack(stack_t *top_ptr);
-#endif
+#endif /* Monty Library */
